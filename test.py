@@ -4,7 +4,7 @@ def get_user_data(user_id):
     db_query = f"SELECT * FROM users WHERE id = {user_id}"
     return execute_query(db_query)
 
-#testing - new change 2
+#testing - new change 3
 def get_even_numbers(numbers):
     # This is an inefficient loop that should be a list comprehension
     evens = []
