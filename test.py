@@ -1,14 +1,18 @@
-# test.py
-def get_user_data(user_id):
-    # This is a classic SQL injection vulnerability
-    db_query = f"SELECT * FROM users WHERE id = {user_id}"
-    return execute_query(db_query)
+def get_user_data(user_id, db_connection):
+    """
+    Retrieves user data securely using parameterized queries.
+    Parameterized queries ensure that the database driver handles 
+    input sanitization, preventing SQL injection.
+    """
+    query = "SELECT * FROM users WHERE id = %s"
+    # Assuming the use of a standard DB-API compliant cursor
+    cursor = db_connection.cursor()
+    cursor.execute(query, (user_id,))
+    return cursor.fetchall()
 
-#testing - new change 78
 def get_even_numbers(numbers):
-    # This is an inefficient loop that should be a list comprehension
-    evens = []
-    for i in range(len(numbers)):
-        if numbers[i] % 2 == 0:
-            evens.append(numbers[i])
-    return evens
+    """
+    Returns even numbers using a list comprehension.
+    This is more idiomatic and performs better than manual index-based loops.
+    """
+    return [num for num in numbers if num % 2 == 0]
